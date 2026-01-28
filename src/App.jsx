@@ -12,6 +12,7 @@ import FormsMenu from './components/FormsMenu';
 import AuthForms from './components/forms/AuthForms';
 import NestedForm from './components/forms/NestedForm';
 import UncontrolledForm from './components/forms/UncontrolledForm';
+import Carousel from './components/Carousel';
 import './App.css';
 
 // Simple Home Component with Navigation
@@ -24,6 +25,7 @@ function Home() {
           <li><Link to="/props">Props</Link></li>
           <li><Link to="/hooks">Hooks</Link></li>
           <li><Link to="/forms">Forms</Link></li>
+          <li><Link to="/carousel">Carousel Demo</Link></li>
         </ul>
       </nav>
     </div>
@@ -53,6 +55,9 @@ function App() {
         <Route path="/forms/auth" element={<AuthForms />} />
         <Route path="/forms/nested" element={<NestedForm />} />
         <Route path="/forms/uncontrolled" element={<UncontrolledForm />} />
+
+        {/* Simple Carousel */}
+        <Route path="/carousel" element={<Carousel />} />
       </Routes>
     </Router>
   );

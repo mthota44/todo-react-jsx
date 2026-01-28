@@ -1,99 +1,184 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 /* 
   =====================================================================
-  HOOK: useEffect (Side Effects)
+  HOOK: useEffect (Beginner's Guide)
   =====================================================================
   
   What is useEffect?
-  - It handles "side effects" in functional components.
-  - Side effects include: fetching data, timers, manual DOM updates, subscriptions.
-  - It runs AFTER the render.
+  - It runs code AFTER the component renders.
+  - Used for: API calls, Timers, Window Events.
+
+  The Dependency Array [] is the most important part:
+  - []        = Run ONCE (on mount).
+  - [prop]    = Run when 'prop' changes.
+  - No Array  = Run EVERY render (Slow!).
 */
 
-const UseEffectDemo = () => {
-    // ----------------------------------------------------
-    // 1. DEPENDENCY ARRAY CONCEPT
-    // ----------------------------------------------------
-    const [count, setCount] = useState(0);
-    const [data, setData] = useState(null);
+// ============================================
+// PART 1: NORMAL USE CASES
+// ============================================
 
-    // Case A: No Dependency Array
-    // Runs on EVERY render. (Dangerous if setting state inside!)
-    useEffect(() => {
-        console.log("Ran every render");
-    });
+// A. RUN ON MOUNT
+const OnMountDemo = () => {
+    const [status, setStatus] = useState("Loading...");
 
-    // Case B: Empty Dependency Array []
-    // Runs ONLY ONCE (on Mount). Good for API calls.
     useEffect(() => {
-        console.log("Ran only on Mount");
-        // Simulate API Call
+        console.log("🟢 [A. OnMount] 1. Started fetching...");
+
         setTimeout(() => {
-            setData("Data Fetched!");
-        }, 1000);
+            setStatus("Data Loaded ✅");
+            console.log("🟢 [A. OnMount] 2. Finished fetching.");
+        }, 2000);
     }, []);
 
-    // Case C: With Dependencies [count]
-    // Runs on Mount + Whenever 'count' changes.
+    return (
+        <div style={boxStyle}>
+            <h4>A. Run Once (Mount)</h4>
+            <p>Status: <strong>{status}</strong></p>
+            <small>Logs "🟢" in console.</small>
+        </div>
+    );
+};
+
+// B. RUN ON CHANGE
+const OnChangeDemo = () => {
+    const [count, setCount] = useState(0);
+
     useEffect(() => {
-        console.log(`Count changed to: ${count}`);
+        if (count > 0) {
+            console.log(`🟡 [B. OnChange] Count changed to: ${count}`);
+        }
     }, [count]);
 
-    // ----------------------------------------------------
-    // 2. CLEANUP FUNCTION
-    // ----------------------------------------------------
-    const [timerActive, setTimerActive] = useState(false);
-    const [time, setTime] = useState(0);
+    return (
+        <div style={boxStyle}>
+            <h4>B. Run on Update</h4>
+            <p>Count: {count}</p>
+            <button onClick={() => setCount(c => c + 1)}>Increment</button>
+            <br /><small>Logs "🟡" when you click.</small>
+        </div>
+    );
+};
+
+// C. CLEANUP
+const CleanupDemo = () => {
+    const [seconds, setSeconds] = useState(0);
 
     useEffect(() => {
-        let intervalId;
-        if (timerActive) {
-            intervalId = setInterval(() => {
-                setTime(prev => prev + 1);
-            }, 1000);
-        }
+        console.log("🔵 [C. Cleanup] Timer Started.");
 
-        // CLEANUP FUNCTION
-        // Returns a function that runs BEFORE the component unmounts 
-        // OR before the effect re-runs.
-        // Critical for preventing memory leaks (timers, event listeners).
+        const interval = setInterval(() => {
+            setSeconds(s => s + 1);
+        }, 1000);
+
+        // CLEANUP
         return () => {
-            console.log("Cleaning up timer...");
-            clearInterval(intervalId);
+            console.log("🔴 [C. Cleanup] UNMOUNTED. Timer Stopped.");
+            clearInterval(interval);
         };
-    }, [timerActive]);
+    }, []);
+
+    return (
+        <div style={boxStyle}>
+            <h4>C. Cleanup (Timer)</h4>
+            <p>Timer: {seconds}s</p>
+            <small>Unmount to see "🔴" log.</small>
+        </div>
+    );
+};
+
+
+// ============================================
+// PART 2: COMMON BUGS (Edge Cases)
+// ============================================
+
+// D. THE OBJECT TRAP
+const ObjectTrap = () => {
+    const [force, setForce] = useState(0);
+    const runCount = useRef(0);
+    const user = { id: 1 }; // New object every render!
+
+    useEffect(() => {
+        runCount.current += 1;
+        console.log("⚠️ [D. Trap] Effect ran unnecessarily.");
+    }, [user]);
+
+    return (
+        <div style={{ ...boxStyle, borderColor: 'orange' }}>
+            <h4>D. The Object Trap</h4>
+            <p>Runs: <strong>{runCount.current}</strong></p>
+            <button onClick={() => setForce(n => n + 1)}>Re-render</button>
+            <br /><small>Runs every click! (Bad performance)</small>
+        </div>
+    );
+};
+
+// E. STALE CLOSURE (The "Invisible Log" Fix)
+const StaleClosure = () => {
+    const [count, setCount] = useState(0);
+    const [status, setStatus] = useState("⏳ Wait 2s...");
+
+    useEffect(() => {
+        console.log("🐛 [E. Stale] 1. Timer Started (Captured Count = 0)");
+
+        const timer = setTimeout(() => {
+            // BUG: usage of 'count' here is STALE (Old value)
+            console.log(`🐛 [E. Stale] 2. TIMER DONE. Captured Count is: ${count}`);
+            setStatus("✅ Log Fired! (Check Console)");
+        }, 2000);
+
+        return () => clearTimeout(timer);
+    }, []); // MISSING [count] dependency!
+
+    return (
+        <div style={{ ...boxStyle, borderColor: 'red' }}>
+            <h4>E. Stale Closure Bug</h4>
+            <p>Current Count: <strong>{count}</strong></p>
+            <p>Status: {status}</p>
+            <button onClick={() => setCount(c => c + 1)}>Increment Fast!</button>
+            <p><small>Even if you click, log shows 0.</small></p>
+        </div>
+    );
+};
+
+// ============================================
+// MAIN PARENT
+// ============================================
+const UseEffectDemo = () => {
+    const [showTimer, setShowTimer] = useState(true);
 
     return (
         <div style={{ padding: '20px', fontFamily: 'Arial' }}>
-            <h1>useEffect Hook Demo</h1>
+            <h1>useEffect: Visual Lab</h1>
+            <p>Press <strong>F12</strong> to view Console Logs.</p>
 
-            <div style={sectionStyle}>
-                <h3>1. Dependencies (Open Console)</h3>
-                <p>Check console logs to see when effects trigger.</p>
-                <p><strong>Count:</strong> {count}</p>
-                <button onClick={() => setCount(count + 1)}>Increment Count</button>
-                <p><strong>API Status:</strong> {data ? data : "Loading..."}</p>
-            </div>
+            <div style={containerStyle}>
+                <div style={columnStyle}>
+                    <h3 style={{ color: 'green' }}>✅ Correct Usage</h3>
+                    <OnMountDemo />
+                    <OnChangeDemo />
+                    <div style={{ border: '1px dashed #ccc', padding: '10px' }}>
+                        <button onClick={() => setShowTimer(!showTimer)}>
+                            {showTimer ? "Turn Off Timer" : "Turn On Timer"}
+                        </button>
+                        {showTimer && <CleanupDemo />}
+                    </div>
+                </div>
 
-            <div style={sectionStyle}>
-                <h3>2. Cleanup Function (Timer)</h3>
-                <p><strong>Time:</strong> {time}s</p>
-                <button onClick={() => setTimerActive(!timerActive)}>
-                    {timerActive ? "Stop Timer" : "Start Timer"}
-                </button>
-                <p><em>(When you stop, the cleanup function runs clears the interval)</em></p>
+                <div style={columnStyle}>
+                    <h3 style={{ color: 'red' }}>❌ Common Bugs</h3>
+                    <ObjectTrap />
+                    <StaleClosure />
+                </div>
             </div>
         </div>
     );
 };
 
-const sectionStyle = {
-    border: '1px solid #ddd',
-    padding: '15px',
-    marginBottom: '20px',
-    borderRadius: '8px',
-    background: '#f9f9f9'
-};
+// STYLES
+const containerStyle = { display: 'flex', gap: '20px', flexWrap: 'wrap' };
+const columnStyle = { flex: '1', minWidth: '300px', display: 'flex', flexDirection: 'column', gap: '15px' };
+const boxStyle = { border: '1px solid #ccc', padding: '15px', borderRadius: '8px', backgroundColor: '#fff', boxShadow: '0 2px 4px #eee' };
 
 export default UseEffectDemo;

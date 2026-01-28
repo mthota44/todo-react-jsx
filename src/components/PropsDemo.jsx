@@ -42,7 +42,7 @@ const ProductList = (props) => {
             <ul>
                 {/* Concept: Rendering Lists from Array Props */}
                 {items.map((item, index) => (
-                    <li key={index}>{item}</li>
+                    <li key={index}>{index}<b>:</b>{item}</li>
                 ))}
             </ul>
         </div>
