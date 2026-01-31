@@ -89,7 +89,7 @@ const ShallowDeepCopy = () => {
     const demonstrateDirectMutation = () => {
         const user = originalUser; // Reference pointing to SAME memory
         user.name = "Mutated John"; // Modifies original directly!
-
+        user.details.city = "Mutated City"; // Modifies original directly!
         // React might not even notice this change immediately because 
         // setOriginalUser wasn't called with a new reference.
         // We force a re-render or set state to existing obj to "try" to update
@@ -112,7 +112,7 @@ const ShallowDeepCopy = () => {
         // Update state to see changes on screen (if any)
         // In a real app we'd do: setOriginalUser(shallowCopy);
         // Here we just log what happened
-        setOriginalUser(shallowCopy);
+        //setOriginalUser(shallowCopy);
         addLog("Shallow Copy: Top-level name change is safe. BUT 'city' changed in Original too!");
     };
 

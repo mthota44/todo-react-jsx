@@ -99,10 +99,12 @@ const ObjectTrap = () => {
     const runCount = useRef(0);
     const user = { id: 1 }; // New object every render!
 
+    runCount.current += 1;
+
     useEffect(() => {
-        runCount.current += 1;
+
         console.log("⚠️ [D. Trap] Effect ran unnecessarily.");
-    }, [user]);
+    }, [runCount]);
 
     return (
         <div style={{ ...boxStyle, borderColor: 'orange' }}>
