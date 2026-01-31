@@ -101,7 +101,7 @@ const TodoList = () => {
             <h4>4. Array (Immutable)</h4>
             <button onClick={addItem}>+ Add Bread</button>
             <ul>
-                {todos.map((t, i) => <li key={i}>{t}</li>)}
+                {todos.map((t, i) => <li key={i}>key: {i} - value: {t}</li>)}
             </ul>
         </div>
     );

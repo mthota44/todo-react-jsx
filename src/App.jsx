@@ -13,6 +13,15 @@ import AuthForms from './components/forms/AuthForms';
 import NestedForm from './components/forms/NestedForm';
 import UncontrolledForm from './components/forms/UncontrolledForm';
 import Carousel from './components/Carousel';
+import BasicsMenu from './components/BasicsMenu';
+import ShallowDeepCopy from './components/basics/ShallowDeepCopy';
+import ReferentialIntegrity from './components/basics/ReferentialIntegrity';
+import DeclarativeVsImperative from './components/basics/DeclarativeVsImperative';
+import DataFlow from './components/basics/DataFlow';
+import LifecycleConcept from './components/basics/LifecycleConcept';
+import FunctionalProgramming from './components/basics/FunctionalProgramming';
+import ControlledInputDemo from './components/basics/ControlledInputDemo';
+import StateBatching from './components/basics/StateBatching';
 import './App.css';
 
 // Simple Home Component with Navigation
@@ -22,6 +31,7 @@ function Home() {
       <h1>React Concepts</h1>
       <nav>
         <ul>
+          <li><Link to="/basics">Basics</Link></li>
           <li><Link to="/props">Props</Link></li>
           <li><Link to="/hooks">Hooks</Link></li>
           <li><Link to="/forms">Forms</Link></li>
@@ -37,6 +47,16 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<Home />} />
+
+        <Route path="/basics" element={<BasicsMenu />} />
+        <Route path="/basics/shallow-deep-copy" element={<ShallowDeepCopy />} />
+        <Route path="/basics/referential-integrity" element={<ReferentialIntegrity />} />
+        <Route path="/basics/declarative" element={<DeclarativeVsImperative />} />
+        <Route path="/basics/data-flow" element={<DataFlow />} />
+        <Route path="/basics/lifecycle" element={<LifecycleConcept />} />
+        <Route path="/basics/functional" element={<FunctionalProgramming />} />
+        <Route path="/basics/controlled" element={<ControlledInputDemo />} />
+        <Route path="/basics/batching" element={<StateBatching />} />
 
         {/* Module 2: Props */}
         <Route path="/props" element={<PropsDemo />} />
