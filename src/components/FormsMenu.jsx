@@ -22,6 +22,11 @@ const FormsMenu = () => {
                     <h3>⚡ Uncontrolled</h3>
                     <p>Using <code>useRef</code> for performance (No re-renders).</p>
                 </Link>
+
+                <Link to="/forms/hook-form" style={cardStyle}>
+                    <h3>📋 React Hook Form</h3>
+                    <p>Modern form state management + Zod Validation.</p>
+                </Link>
             </div>
         </div>
     );

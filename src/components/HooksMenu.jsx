@@ -35,7 +35,12 @@ const HooksMenu = () => {
                 </li>
                 <li style={{ margin: '10px 0' }}>
                     <Link to="/hooks/usememo" style={linkStyle}>
-                        👉 <strong>useMemo & useCallback</strong> (Performance)
+                        👉 <strong>useMemo</strong> (Memoized Values)
+                    </Link>
+                </li>
+                <li style={{ margin: '10px 0' }}>
+                    <Link to="/hooks/usecallback" style={linkStyle}>
+                        👉 <strong>useCallback</strong> (Memoized Functions)
                     </Link>
                 </li>
             </ul>

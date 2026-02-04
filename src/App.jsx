@@ -7,11 +7,13 @@ import UseEffectDemo from './components/hooks/UseEffectDemo';
 import UseRefDemo from './components/hooks/UseRefDemo';
 import UseContextDemo from './components/hooks/UseContextDemo';
 import UseReducerDemo from './components/hooks/UseReducerDemo';
-import UseMemoCallbackDemo from './components/hooks/UseMemoCallbackDemo';
+import UseMemoDemo from './components/hooks/UseMemoDemo';
+import UseCallbackDemo from './components/hooks/UseCallbackDemo';
 import FormsMenu from './components/FormsMenu';
 import AuthForms from './components/forms/AuthForms';
 import NestedForm from './components/forms/NestedForm';
 import UncontrolledForm from './components/forms/UncontrolledForm';
+import ReactHookFormDemo from './components/forms/ReactHookFormDemo';
 import Carousel from './components/Carousel';
 import BasicsMenu from './components/BasicsMenu';
 import ShallowDeepCopy from './components/basics/ShallowDeepCopy';
@@ -22,6 +24,7 @@ import LifecycleConcept from './components/basics/LifecycleConcept';
 import FunctionalProgramming from './components/basics/FunctionalProgramming';
 import ControlledInputDemo from './components/basics/ControlledInputDemo';
 import StateBatching from './components/basics/StateBatching';
+import PythonBasics from './components/PythonBasics';
 import './App.css';
 
 // Simple Home Component with Navigation
@@ -36,6 +39,7 @@ function Home() {
           <li><Link to="/hooks">Hooks</Link></li>
           <li><Link to="/forms">Forms</Link></li>
           <li><Link to="/carousel">Carousel Demo</Link></li>
+          <li><Link to="/python-basics">Python Basics</Link></li>
         </ul>
       </nav>
     </div>
@@ -68,16 +72,21 @@ function App() {
         <Route path="/hooks/useref" element={<UseRefDemo />} />
         <Route path="/hooks/usecontext" element={<UseContextDemo />} />
         <Route path="/hooks/usereducer" element={<UseReducerDemo />} />
-        <Route path="/hooks/usememo" element={<UseMemoCallbackDemo />} />
+        <Route path="/hooks/usememo" element={<UseMemoDemo />} />
+        <Route path="/hooks/usecallback" element={<UseCallbackDemo />} />
 
         {/* Module 3: Forms */}
         <Route path="/forms" element={<FormsMenu />} />
         <Route path="/forms/auth" element={<AuthForms />} />
         <Route path="/forms/nested" element={<NestedForm />} />
         <Route path="/forms/uncontrolled" element={<UncontrolledForm />} />
+        <Route path="/forms/hook-form" element={<ReactHookFormDemo />} />
 
         {/* Simple Carousel */}
         <Route path="/carousel" element={<Carousel />} />
+
+        {/* Python Basics */}
+        <Route path="/python-basics" element={<PythonBasics />} />
       </Routes>
     </Router>
   );

@@ -1,75 +1,93 @@
-import React, { useState, useRef } from 'react';
-
-/* 
-  =====================================================================
-  HOOK: useRef (References)
-  =====================================================================
-  
-  What is useRef?
-  - Accessing DOM elements directly.
-  - Storing mutable values that DO NOT trigger re-renders when changed.
-*/
+import React, { useState, useRef, useEffect } from 'react';
 
 const UseRefDemo = () => {
     // ----------------------------------------------------
-    // 1. ACCESSING DOM ELEMENTS
+    // CASE 1: ACCESSING DOM ELEMENTS
     // ----------------------------------------------------
     const inputRef = useRef(null);
 
     const focusInput = () => {
-        // Accessing the DOM node directly
+        // Direct DOM manipulation
         inputRef.current.focus();
+        // Edge Case: modifying styles directly bypassing React
         inputRef.current.style.backgroundColor = "lightyellow";
     };
 
     // ----------------------------------------------------
-    // 2. STORING MUTABLE VALUES (No Re-render)
+    // CASE 2: MUTABLE VALUES (No Re-render)
     // ----------------------------------------------------
     const [renderCount, setRenderCount] = useState(0);
     const countRef = useRef(0);
 
     const handleRefIncrement = () => {
+        // Updates value but does NOT trigger re-render
         countRef.current = countRef.current + 1;
-        console.log(`Ref value is: ${countRef.current} (Render did not happen)`);
+        console.log("Ref Current:", countRef.current);
     };
 
     const handleStateIncrement = () => {
         setRenderCount(renderCount + 1);
     };
 
+    // ----------------------------------------------------
+    // CASE 3: MANAGING INTERVALS (Edge Case)
+    // ----------------------------------------------------
+    // We need to store the Timer ID to clear it later, 
+    // but storing it in state would cause unnecessary re-renders.
+    const [timerval, setTimerVal] = useState(0);
+    const timerIdRef = useRef(null);
+
+    const startTimer = () => {
+        if (timerIdRef.current) return;
+        timerIdRef.current = setInterval(() => {
+            setTimerVal((prev) => prev + 1);
+        }, 100);
+    };
+
+    const stopTimer = () => {
+        clearInterval(timerIdRef.current);
+        timerIdRef.current = null;
+    };
+
+    useEffect(() => {
+        return () => stopTimer();
+    }, []);
+
+    // ----------------------------------------------------
+    // RENDER SCENARIO (The "Don't Do This" Rule)
+    // ----------------------------------------------------
+    // BAD: ref.current = 5; // Never write ref during render
+    // BAD: const x = ref.current; // Avoid reading ref during render if it affects output
+
     return (
-        <div style={{ padding: '20px', fontFamily: 'Arial' }}>
-            <h1>useRef Hook Demo</h1>
+        <div>
+            <h1>useRef Edge Cases</h1>
 
-            <div style={sectionStyle}>
-                <h3>1. DOM Access</h3>
-                <input ref={inputRef} type="text" placeholder="I will be focused..." />
-                <button onClick={focusInput} style={{ marginLeft: '10px' }}>
-                    Focus Input
-                </button>
-            </div>
+            <hr />
 
-            <div style={sectionStyle}>
-                <h3>2. Mutable Variable (No Re-render)</h3>
-                <p><strong>State Value:</strong> {renderCount} (Triggers Rerender)</p>
-                <p><strong>Ref Value:</strong> {countRef.current} (Does NOT Update View)</p>
+            <h3>1. DOM Access (Bypassing React)</h3>
+            <input ref={inputRef} type="text" placeholder="Click button to focus" />
+            <button onClick={focusInput}>Focus DOM</button>
 
-                <button onClick={handleRefIncrement}>Increment Ref (Watch Console)</button>
-                <button onClick={handleStateIncrement} style={{ marginLeft: '10px' }}>
-                    Increment State (Updates View)
-                </button>
-                <p><em>Notice: Incrementing Ref updates the value instantly in memory/console, but the screen doesn't change until State is updated.</em></p>
-            </div>
+            <hr />
+
+            <h3>2. Mutable Variable (Vs State)</h3>
+            <p>State: {renderCount}</p>
+            <p>Ref: {countRef.current} (Won't update UI until state changes)</p>
+            <button onClick={handleRefIncrement}>Increment Ref (Hidden)</button>
+            <button onClick={handleStateIncrement}>Increment State (Render)</button>
+
+            <hr />
+
+            <h3>3. Persisting Timer ID (Background Data)</h3>
+            <p>Timer: {timerval}</p>
+            <button onClick={startTimer}>Start Timer</button>
+            <button onClick={stopTimer}>Stop Timer</button>
+            <p><em>The interval ID is stored in a ref so it persists without causing re-renders itself.</em></p>
+
+            <hr />
         </div>
     );
-};
-
-const sectionStyle = {
-    border: '1px solid #ddd',
-    padding: '15px',
-    marginBottom: '20px',
-    borderRadius: '8px',
-    background: '#f9f9f9'
 };
 
 export default UseRefDemo;
