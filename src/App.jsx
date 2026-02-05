@@ -25,6 +25,7 @@ import FunctionalProgramming from './components/basics/FunctionalProgramming';
 import ControlledInputDemo from './components/basics/ControlledInputDemo';
 import StateBatching from './components/basics/StateBatching';
 import PythonBasics from './components/PythonBasics';
+import TodoApp from './components/todo-app/TodoApp';
 import './App.css';
 
 // Simple Home Component with Navigation
@@ -40,6 +41,7 @@ function Home() {
           <li><Link to="/forms">Forms</Link></li>
           <li><Link to="/carousel">Carousel Demo</Link></li>
           <li><Link to="/python-basics">Python Basics</Link></li>
+          <li><Link to="/todo-app">Todo App</Link></li>
         </ul>
       </nav>
     </div>
@@ -87,6 +89,9 @@ function App() {
 
         {/* Python Basics */}
         <Route path="/python-basics" element={<PythonBasics />} />
+
+        {/* Todo App */}
+        <Route path="/todo-app" element={<TodoApp />} />
       </Routes>
     </Router>
   );
