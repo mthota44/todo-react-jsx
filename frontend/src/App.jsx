@@ -26,6 +26,19 @@ import ControlledInputDemo from './components/basics/ControlledInputDemo';
 import StateBatching from './components/basics/StateBatching';
 import PythonBasics from './components/PythonBasics';
 import TodoApp from './components/todo-app/TodoApp';
+import ReactPrerequisitesMenu from './components/prerequisites/ReactPrerequisitesMenu';
+import HowToStartReact from './components/prerequisites/HowToStartReact';
+import WhatIsReact from './components/prerequisites/WhatIsReact';
+import DomExplanation from './components/prerequisites/DomExplanation';
+import AngularVsReact from './components/prerequisites/AngularVsReact';
+import ProjectStructure from './components/prerequisites/ProjectStructure';
+import JsxRules from './components/prerequisites/JsxRules';
+import FunctionalComponents from './components/prerequisites/FunctionalComponents';
+import DoubtsMenu from './components/doubts/DoubtsMenu';
+import ModifyParentProps from './components/doubts/ModifyParentProps';
+import ReusingComponents from './components/doubts/ReusingComponents';
+import JsConcepts from './components/prerequisites/JsConcepts';
+import FunctionVsConst from './components/prerequisites/FunctionVsConst';
 import './App.css';
 
 // Simple Home Component with Navigation
@@ -35,6 +48,8 @@ function Home() {
       <h1>React Concepts</h1>
       <nav>
         <ul>
+          <li><Link to="/prerequisites">Prerequisites for React</Link></li>
+          <li><Link to="/doubts">Doubts & Common Questions</Link></li>
           <li><Link to="/basics">Basics</Link></li>
           <li><Link to="/props">Props</Link></li>
           <li><Link to="/hooks">Hooks</Link></li>
@@ -53,6 +68,21 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<Home />} />
+
+        <Route path="/prerequisites" element={<ReactPrerequisitesMenu />} />
+        <Route path="/prerequisites/what-is-react" element={<WhatIsReact />} />
+        <Route path="/prerequisites/dom" element={<DomExplanation />} />
+        <Route path="/prerequisites/how-to-start" element={<HowToStartReact />} />
+        <Route path="/prerequisites/angular-vs-react" element={<AngularVsReact />} />
+        <Route path="/prerequisites/project-structure" element={<ProjectStructure />} />
+        <Route path="/prerequisites/jsx-rules" element={<JsxRules />} />
+        <Route path="/prerequisites/functional-components" element={<FunctionalComponents />} />
+        <Route path="/prerequisites/js-concepts" element={<JsConcepts />} />
+        <Route path="/prerequisites/function-vs-const" element={<FunctionVsConst />} />
+
+        <Route path="/doubts" element={<DoubtsMenu />} />
+        <Route path="/doubts/modify-parent-props" element={<ModifyParentProps />} />
+        <Route path="/doubts/reusing-components" element={<ReusingComponents />} />
 
         <Route path="/basics" element={<BasicsMenu />} />
         <Route path="/basics/shallow-deep-copy" element={<ShallowDeepCopy />} />
