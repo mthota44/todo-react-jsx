@@ -26,8 +26,9 @@ const Counter = () => {
             <h4>1. Basic: Number</h4>
             <p>Count: <strong>{count}</strong></p>
             <div style={{ display: 'flex', gap: '5px' }}>
-                <button onClick={() => setCount(count - 1)}>-</button>
-                <button onClick={() => setCount(count + 1)}>+</button>
+                {/* Notice we use 'prev => prev - 1' instead of just 'count - 1' */}
+                <button onClick={() => setCount(prev => prev - 1)}>-</button>
+                <button onClick={() => setCount(prev => prev + 1)}>+</button>
             </div>
         </div>
     );
@@ -108,33 +109,57 @@ const TodoList = () => {
 };
 
 // ============================================
-// 5. FUNCTIONAL UPDATES (The "Queue" Problem)
+// 5. FUNCTIONAL UPDATES (prev => prev + 1)
 // ============================================
 const BatchUpdate = () => {
     const [score, setScore] = useState(0);
 
     const incrementWrong = () => {
-        // React batches these. It sees "0 + 1", "0 + 1", "0 + 1". Result = 1.
+        // ❌ WRONG: React batches these instantly. It calculates "0 + 1", "0 + 1", "0 + 1". Final Result = +1.
         setScore(score + 1);
         setScore(score + 1);
         setScore(score + 1);
     };
 
     const incrementCorrect = () => {
-        // React queues these functions. 
-        // 0 -> 1, then 1 -> 2, then 2 -> 3. Result = 3.
+        // ✅ CORRECT: React queues these safely. 0 -> 1, then 1 -> 2, then 2 -> 3. Final Result = +3.
         setScore(prev => prev + 1);
         setScore(prev => prev + 1);
         setScore(prev => prev + 1);
     };
 
     return (
-        <div style={{ ...boxStyle, borderColor: 'blue' }}>
-            <h4>5. Functional Update</h4>
-            <p>Score: <strong>{score}</strong></p>
-            <button onClick={incrementWrong}>+3 (Wrong Way)</button>
-            <button onClick={incrementCorrect}>+3 (Correct Way)</button>
-            <button onClick={() => setScore(0)}>Reset</button>
+        <div style={{ ...boxStyle, borderColor: '#005bc5' }}>
+            <h4 style={{ color: '#005bc5', margin: '0 0 10px 0' }}>5. Functional Update (The "prev" Trick)</h4>
+            
+            <div style={{ backgroundColor: '#f8f9fa', padding: '10px', borderRadius: '4px', fontSize: '13px', marginBottom: '10px', borderLeft: '3px solid #ffc107' }}>
+                <strong style={{ color: '#d32f2f' }}>When to use Functional Updates?</strong>
+                <ul style={{ margin: '5px 0', paddingLeft: '20px' }}>
+                    <li>Updating based strictly on the <strong>previous state</strong>.</li>
+                    <li>Multiple heavily nested updates happening quickly.</li>
+                    <li>Inside Async operations (like <code>setTimeout</code>).</li>
+                </ul>
+                <p style={{ margin: '5px 0 0 0', backgroundColor: '#e9ecef', padding: '5px', borderRadius: '3px' }}><strong>🧠 Easy Rule:</strong> If you visually see the previous value used (like <code>count + 1</code>), <strong>ALWAYS</strong> use: <code>prev =&gt; newValue</code></p>
+            </div>
+
+            <p style={{ fontSize: '18px', margin: '10px 0' }}>Score: <strong style={{ fontSize: '24px' }}>{score}</strong></p>
+            
+            <div style={{ display: 'flex', gap: '5px', flexWrap: 'wrap' }}>
+                <button onClick={incrementWrong} style={{ backgroundColor: '#dc3545', color: 'white', border: 'none', padding: '5px 10px', borderRadius: '4px', cursor: 'pointer' }}>+3 (Wrong Way)</button>
+                <button onClick={incrementCorrect} style={{ backgroundColor: '#28a745', color: 'white', border: 'none', padding: '5px 10px', borderRadius: '4px', cursor: 'pointer' }}>+3 (Safe Way)</button>
+            </div>
+
+            <pre style={{ fontSize: '11px', backgroundColor: '#282c34', color: '#fff', padding: '10px', marginTop: '15px', overflowX: 'auto', borderRadius: '4px' }}>
+{`// ❌ Wrong:
+setScore(score + 1);
+setScore(score + 1);
+👉 Final result = +1 ❌
+
+// ✅ Correct (Uses queue):
+setScore(prev => prev + 1);
+setScore(prev => prev + 1);
+👉 Final result = +2 ✅`}</pre>
+            <button onClick={() => setScore(0)} style={{ width: '100%', marginTop: '10px', padding: '8px', cursor: 'pointer' }}>Reset Score</button>
         </div>
     );
 };

@@ -39,6 +39,7 @@ import ModifyParentProps from './components/doubts/ModifyParentProps';
 import ReusingComponents from './components/doubts/ReusingComponents';
 import JsConcepts from './components/prerequisites/JsConcepts';
 import FunctionVsConst from './components/prerequisites/FunctionVsConst';
+import WhyNotLet from './components/doubts/WhyNotLet';
 import './App.css';
 
 // Simple Home Component with Navigation
@@ -83,6 +84,7 @@ function App() {
         <Route path="/doubts" element={<DoubtsMenu />} />
         <Route path="/doubts/modify-parent-props" element={<ModifyParentProps />} />
         <Route path="/doubts/reusing-components" element={<ReusingComponents />} />
+        <Route path="/doubts/why-not-let" element={<WhyNotLet />} />
 
         <Route path="/basics" element={<BasicsMenu />} />
         <Route path="/basics/shallow-deep-copy" element={<ShallowDeepCopy />} />

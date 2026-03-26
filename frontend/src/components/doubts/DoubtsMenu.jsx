@@ -18,6 +18,11 @@ const DoubtsMenu = () => {
                         👉 <strong>2. Can I reuse a Component from one file inside another file?</strong>
                     </Link>
                 </li>
+                <li style={{ margin: '10px 0' }}>
+                    <Link to="/doubts/why-not-let" style={linkStyle}>
+                        👉 <strong>3. Why can't we just use a simple <code>let count = 0</code> instead of State?</strong>
+                    </Link>
+                </li>
             </ul>
         </div>
     );
