@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+
 
 /* 
   =====================================================================
@@ -99,9 +101,15 @@ const TodoList = () => {
 
     return (
         <div style={{ ...boxStyle, borderColor: 'purple' }}>
-            <h4>4. Array (Immutable)</h4>
-            <button onClick={addItem}>+ Add Bread</button>
-            <ul>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '10px' }}>
+                <h4 style={{ margin: 0 }}>4. Array (Immutable)</h4>
+                <Link to="/doubts/the-box-immutability" style={{ fontSize: '11px', color: '#d32f2f', backgroundColor: '#ffebee', padding: '5px 8px', borderRadius: '4px', textDecoration: 'none', border: '1px solid #ffcdd2', fontWeight: 'bold' }}>
+                    ❓ Doubt: Why not .push()?
+                </Link>
+            </div>
+            
+            <button onClick={addItem} style={{ padding: '5px 10px', cursor: 'pointer' }}>+ Add Bread</button>
+            <ul style={{ marginTop: '10px' }}>
                 {todos.map((t, i) => <li key={i}>key: {i} - value: {t}</li>)}
             </ul>
         </div>
@@ -130,7 +138,12 @@ const BatchUpdate = () => {
 
     return (
         <div style={{ ...boxStyle, borderColor: '#005bc5' }}>
-            <h4 style={{ color: '#005bc5', margin: '0 0 10px 0' }}>5. Functional Update (The "prev" Trick)</h4>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '10px' }}>
+                <h4 style={{ color: '#005bc5', margin: 0 }}>5. Functional Update (The "prev" Trick)</h4>
+                <Link to="/doubts/functional-update-prev" style={{ fontSize: '11px', color: '#005bc5', backgroundColor: '#e6f2ff', padding: '5px 8px', borderRadius: '4px', textDecoration: 'none', border: '1px solid #b3d7ff', fontWeight: 'bold' }}>
+                    ❓ Doubt: Why does it fail?
+                </Link>
+            </div>
             
             <div style={{ backgroundColor: '#f8f9fa', padding: '10px', borderRadius: '4px', fontSize: '13px', marginBottom: '10px', borderLeft: '3px solid #ffc107' }}>
                 <strong style={{ color: '#d32f2f' }}>When to use Functional Updates?</strong>

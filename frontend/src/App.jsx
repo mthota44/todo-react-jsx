@@ -40,6 +40,9 @@ import ReusingComponents from './components/doubts/ReusingComponents';
 import JsConcepts from './components/prerequisites/JsConcepts';
 import FunctionVsConst from './components/prerequisites/FunctionVsConst';
 import WhyNotLet from './components/doubts/WhyNotLet';
+import AngularVirtualDom from './components/doubts/AngularVirtualDom';
+import TheBoxImmutability from './components/doubts/TheBoxImmutability';
+import FunctionalUpdatePrev from './components/doubts/FunctionalUpdatePrev';
 import './App.css';
 
 // Simple Home Component with Navigation
@@ -85,6 +88,9 @@ function App() {
         <Route path="/doubts/modify-parent-props" element={<ModifyParentProps />} />
         <Route path="/doubts/reusing-components" element={<ReusingComponents />} />
         <Route path="/doubts/why-not-let" element={<WhyNotLet />} />
+        <Route path="/doubts/angular-virtual-dom" element={<AngularVirtualDom />} />
+        <Route path="/doubts/the-box-immutability" element={<TheBoxImmutability />} />
+        <Route path="/doubts/functional-update-prev" element={<FunctionalUpdatePrev />} />
 
         <Route path="/basics" element={<BasicsMenu />} />
         <Route path="/basics/shallow-deep-copy" element={<ShallowDeepCopy />} />

@@ -23,6 +23,21 @@ const DoubtsMenu = () => {
                         👉 <strong>3. Why can't we just use a simple <code>let count = 0</code> instead of State?</strong>
                     </Link>
                 </li>
+                <li style={{ margin: '10px 0' }}>
+                    <Link to="/doubts/angular-virtual-dom" style={linkStyle}>
+                        👉 <strong>4. Why didn't Angular switch to the Virtual DOM?</strong>
+                    </Link>
+                </li>
+                <li style={{ margin: '10px 0' }}>
+                    <Link to="/doubts/the-box-immutability" style={linkStyle}>
+                        👉 <strong>5. Array Immutability: What is "The Box"? (Why does .push() fail?)</strong>
+                    </Link>
+                </li>
+                <li style={{ margin: '10px 0' }}>
+                    <Link to="/doubts/functional-update-prev" style={linkStyle}>
+                        👉 <strong>6. Why does calling setCount 3 times quickly only add +1? (The 'prev' trick)</strong>
+                    </Link>
+                </li>
             </ul>
         </div>
     );
