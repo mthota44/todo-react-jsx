@@ -121,6 +121,7 @@ const StaleClosure = () => {
     const [count, setCount] = useState(0);
     const [status, setStatus] = useState("⏳ Wait 2s...");
 
+
     useEffect(() => {
         console.log("🐛 [E. Stale] 1. Timer Started (Captured Count = 0)");
 
@@ -140,6 +141,74 @@ const StaleClosure = () => {
             <p>Status: {status}</p>
             <button onClick={() => setCount(c => c + 1)}>Increment Fast!</button>
             <p><small>Even if you click, log shows 0.</small></p>
+        </div>
+    );
+};
+
+// ============================================
+// PART 3: WEB DEV SIMPLIFIED (YOUTUBE REFERENCE)
+// ============================================
+
+// F. WDS Video Example 1: Fetching Data on State Change
+const FetchResourceDemo = () => {
+    const [resourceType, setResourceType] = useState('posts');
+    const [items, setItems] = useState([]);
+
+    useEffect(() => {
+        console.log(`🌐 [WDS] 1. Setting up effect & fetching ${resourceType}...`);
+
+        fetch(`https://jsonplaceholder.typicode.com/${resourceType}`)
+            .then(response => response.json())
+            .then(json => setItems(json));
+
+        // CLEANUP FUNCTION (Runs BEFORE the next effect runs)
+        return () => {
+            console.log(`🧹 [WDS] 2. CLEANUP running for [${resourceType}] before the next fetch!`);
+        };
+    }, [resourceType]);
+
+    return (
+        <div style={{ ...boxStyle, borderColor: '#007bff' }}>
+            <h4 style={{ color: '#007bff', marginTop: 0, marginBottom: '10px' }}>F. Dynamic Data Fetching</h4>
+            <div style={{ display: 'flex', gap: '5px', marginBottom: '10px' }}>
+                <button onClick={() => setResourceType('posts')}>Posts</button>
+                <button onClick={() => setResourceType('users')}>Users</button>
+                <button onClick={() => setResourceType('comments')}>Comments</button>
+            </div>
+            <strong>{resourceType.toUpperCase()}</strong>
+            <div style={{ maxHeight: '100px', overflowY: 'auto', fontSize: '11px', background: '#f5f5f5', padding: '5px', marginTop: '5px', border: '1px solid #ddd' }}>
+                {items.slice(0, 3).map((item, i) => <div key={i} style={{ marginBottom: '5px', borderBottom: '1px solid #ddd', paddingBottom: '3px' }}>{JSON.stringify(item).substring(0, 80)}...</div>)}
+            </div>
+            <small style={{ display: 'block', marginTop: '5px' }}>Check console to see the Cleanup run between clicks!</small>
+        </div>
+    );
+};
+
+// G. WDS Video Example 2: Window Resize Event Listener
+const WindowResizeDemo = () => {
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+    const handleResize = () => {
+        setWindowWidth(window.innerWidth);
+    };
+
+    useEffect(() => {
+        // Run on mount
+        console.log("📏 [WDS] 1. ADDING window resize listener.");
+        window.addEventListener('resize', handleResize);
+
+        // Run on unmount (Cleanup)
+        return () => {
+            console.log("📏 [WDS] 2. REMOVING window resize listener (Cleanup).");
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []); // Only run once on mount
+
+    return (
+        <div style={{ ...boxStyle, borderColor: '#007bff' }}>
+            <h4 style={{ color: '#007bff', marginTop: 0, marginBottom: '10px' }}>G. Window Resize Listener</h4>
+            <p style={{ margin: '5px 0' }}>Window Width: <strong>{windowWidth}px</strong></p>
+            <small>Resize your browser to see this update dynamically.</small>
         </div>
     );
 };
@@ -174,12 +243,18 @@ const UseEffectDemo = () => {
                     <h3 style={{ color: 'green' }}>✅ Correct Usage</h3>
                     <OnMountDemo />
                     <OnChangeDemo />
-                    <div style={{ border: '1px dashed #ccc', padding: '10px' }}>
-                        <button onClick={() => setShowTimer(!showTimer)}>
-                            {showTimer ? "Turn Off Timer" : "Turn On Timer"}
+                    <div style={{ border: '1px dashed #ccc', padding: '10px', borderRadius: '8px' }}>
+                        <button onClick={() => setShowTimer(!showTimer)} style={{ marginBottom: '10px' }}>
+                            {showTimer ? "🛑 Destroy Component" : "▶️ Mount Component"}
                         </button>
                         {showTimer && <CleanupDemo />}
                     </div>
+                </div>
+
+                <div style={columnStyle}>
+                    <h3 style={{ color: '#007bff' }}>📺 Reference Lab</h3>
+                    <FetchResourceDemo />
+                    <WindowResizeDemo />
                 </div>
 
                 <div style={columnStyle}>

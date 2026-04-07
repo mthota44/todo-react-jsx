@@ -40,7 +40,12 @@ const StateBatching = () => {
 
             {/* 1. Snapshots */}
             <div style={{ backgroundColor: '#fff3e0', borderLeft: '5px solid #ff9800', padding: '20px', marginTop: '30px', borderRadius: '4px' }}>
-                <h2 style={{ color: '#e65100', marginTop: 0 }}>1. The "Snapshot" Rule</h2>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '10px' }}>
+                    <h2 style={{ color: '#e65100', margin: 0 }}>1. The "Snapshot" Rule</h2>
+                    <Link to="/doubts/snapshot-only-state" style={{ fontSize: '11px', color: '#e65100', backgroundColor: '#ffe0b2', padding: '5px 8px', borderRadius: '4px', textDecoration: 'none', border: '1px solid #ffcc80', fontWeight: 'bold' }}>
+                        ❓ Doubt: Does it snapshot EVERYTHING?
+                    </Link>
+                </div>
                 <p>In React, State variables are <em>not</em> live variables that change mid-function like normal Javascript. Every time React draws your screen, it takes a strict, unchangeable <strong>"Snapshot"</strong> of your state at that exact millisecond.</p>
                 
                 <h4 style={{ margin: '15px 0 5px 0' }}>📸 The Photo Analogy:</h4>

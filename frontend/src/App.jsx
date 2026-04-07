@@ -43,12 +43,16 @@ import WhyNotLet from './components/doubts/WhyNotLet';
 import AngularVirtualDom from './components/doubts/AngularVirtualDom';
 import TheBoxImmutability from './components/doubts/TheBoxImmutability';
 import FunctionalUpdatePrev from './components/doubts/FunctionalUpdatePrev';
+import SnapshotOnlyState from './components/doubts/SnapshotOnlyState';
+import ReactRenderingBehindScenes from './components/doubts/ReactRenderingBehindScenes';
+import SnakeCursor from './components/doubts/SnakeCursor';
 import './App.css';
 
 // Simple Home Component with Navigation
 function Home() {
   return (
     <div style={{ padding: '20px' }}>
+      <SnakeCursor />
       <h1>React Concepts</h1>
       <nav>
         <ul>
@@ -91,6 +95,8 @@ function App() {
         <Route path="/doubts/angular-virtual-dom" element={<AngularVirtualDom />} />
         <Route path="/doubts/the-box-immutability" element={<TheBoxImmutability />} />
         <Route path="/doubts/functional-update-prev" element={<FunctionalUpdatePrev />} />
+        <Route path="/doubts/snapshot-only-state" element={<SnapshotOnlyState />} />
+        <Route path="/doubts/react-rendering" element={<ReactRenderingBehindScenes />} />
 
         <Route path="/basics" element={<BasicsMenu />} />
         <Route path="/basics/shallow-deep-copy" element={<ShallowDeepCopy />} />

@@ -38,6 +38,16 @@ const DoubtsMenu = () => {
                         👉 <strong>6. Why does calling setCount 3 times quickly only add +1? (The 'prev' trick)</strong>
                     </Link>
                 </li>
+                <li style={{ margin: '10px 0' }}>
+                    <Link to="/doubts/snapshot-only-state" style={linkStyle}>
+                        👉 <strong>7. Does React Snapshot EVERYTHING? Or just State variables?</strong>
+                    </Link>
+                </li>
+                <li style={{ margin: '10px 0' }}>
+                    <Link to="/doubts/react-rendering" style={linkStyle}>
+                        👉 <strong>8. What actually happens behind the scenes during a React Render?</strong>
+                    </Link>
+                </li>
             </ul>
         </div>
     );
