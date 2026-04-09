@@ -45,7 +45,9 @@ import TheBoxImmutability from './components/doubts/TheBoxImmutability';
 import FunctionalUpdatePrev from './components/doubts/FunctionalUpdatePrev';
 import SnapshotOnlyState from './components/doubts/SnapshotOnlyState';
 import ReactRenderingBehindScenes from './components/doubts/ReactRenderingBehindScenes';
+import VanillaJsStateProblem from './components/doubts/VanillaJsStateProblem';
 import SnakeCursor from './components/doubts/SnakeCursor';
+import RoutingDemo from './components/routing/RoutingDemo';
 import './App.css';
 
 // Simple Home Component with Navigation
@@ -59,6 +61,7 @@ function Home() {
           <li><Link to="/prerequisites">Prerequisites for React</Link></li>
           <li><Link to="/doubts">Doubts & Common Questions</Link></li>
           <li><Link to="/basics">Basics</Link></li>
+          <li><Link to="/routing">Routing & SPA</Link></li>
           <li><Link to="/props">Props</Link></li>
           <li><Link to="/hooks">Hooks</Link></li>
           <li><Link to="/forms">Forms</Link></li>
@@ -97,6 +100,7 @@ function App() {
         <Route path="/doubts/functional-update-prev" element={<FunctionalUpdatePrev />} />
         <Route path="/doubts/snapshot-only-state" element={<SnapshotOnlyState />} />
         <Route path="/doubts/react-rendering" element={<ReactRenderingBehindScenes />} />
+        <Route path="/doubts/vanilla-state" element={<VanillaJsStateProblem />} />
 
         <Route path="/basics" element={<BasicsMenu />} />
         <Route path="/basics/shallow-deep-copy" element={<ShallowDeepCopy />} />
@@ -107,6 +111,9 @@ function App() {
         <Route path="/basics/functional" element={<FunctionalProgramming />} />
         <Route path="/basics/controlled" element={<ControlledInputDemo />} />
         <Route path="/basics/batching" element={<StateBatching />} />
+
+        {/* Routing */}
+        <Route path="/routing/*" element={<RoutingDemo />} />
 
         {/* Module 2: Props */}
         <Route path="/props" element={<PropsDemo />} />

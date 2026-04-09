@@ -48,6 +48,11 @@ const DoubtsMenu = () => {
                         👉 <strong>8. What actually happens behind the scenes during a React Render?</strong>
                     </Link>
                 </li>
+                <li style={{ margin: '10px 0' }}>
+                    <Link to="/doubts/vanilla-state" style={linkStyle}>
+                        👉 <strong>9. Why is tracking State in Vanilla JS a nightmare? (Why use React?)</strong>
+                    </Link>
+                </li>
             </ul>
         </div>
     );
