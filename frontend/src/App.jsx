@@ -25,6 +25,12 @@ import FunctionalProgramming from './components/basics/FunctionalProgramming';
 import ControlledInputDemo from './components/basics/ControlledInputDemo';
 import StateBatching from './components/basics/StateBatching';
 import PythonBasics from './components/PythonBasics';
+import PythonCourseMenu from './components/python-course/PythonCourseMenu';
+import PythonOOP from './components/python-course/PythonOOP';
+import PythonBasicsAndDataStructures from './components/python-course/PythonBasicsAndDataStructures';
+import PythonFunctions from './components/python-course/PythonFunctions';
+import PythonModules from './components/python-course/PythonModules';
+import PythonAdvanced from './components/python-course/PythonAdvanced';
 import TodoApp from './components/todo-app/TodoApp';
 import ReactPrerequisitesMenu from './components/prerequisites/ReactPrerequisitesMenu';
 import HowToStartReact from './components/prerequisites/HowToStartReact';
@@ -67,6 +73,7 @@ function Home() {
           <li><Link to="/forms">Forms</Link></li>
           <li><Link to="/carousel">Carousel Demo</Link></li>
           <li><Link to="/python-basics">Python Basics</Link></li>
+          <li><Link to="/python-course">🐍 Python Course Roadmap</Link></li>
           <li><Link to="/todo-app">Todo App</Link></li>
         </ul>
       </nav>
@@ -140,6 +147,14 @@ function App() {
 
         {/* Python Basics */}
         <Route path="/python-basics" element={<PythonBasics />} />
+
+        {/* Python Course Roadmap */}
+        <Route path="/python-course" element={<PythonCourseMenu />} />
+        <Route path="/python-course/basics" element={<PythonBasicsAndDataStructures />} />
+        <Route path="/python-course/functions" element={<PythonFunctions />} />
+        <Route path="/python-course/modules" element={<PythonModules />} />
+        <Route path="/python-course/oop" element={<PythonOOP />} />
+        <Route path="/python-course/advanced" element={<PythonAdvanced />} />
 
         {/* Todo App */}
         <Route path="/todo-app" element={<TodoApp />} />
