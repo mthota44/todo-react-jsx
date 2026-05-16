@@ -210,7 +210,7 @@ const styles = {
 // CSS Injection for hover effects and animations
 if (typeof document !== 'undefined') {
     const styleSheet = document.createElement("style");
-    styleSheet.innerText = \`
+    styleSheet.innerText = `
         @keyframes bounce {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-15px); }
@@ -219,7 +219,7 @@ if (typeof document !== 'undefined') {
             transform: translateY(-8px) scale(1.02);
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1);
         }
-    \`;
+    `;
     document.head.appendChild(styleSheet);
 }
 
